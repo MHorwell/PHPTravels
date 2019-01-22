@@ -1,5 +1,6 @@
 package phptravels;
 
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -14,21 +15,22 @@ public class ListingsPage {
 	@FindBy(xpath = "/html/body/div[5]/div[5]/div/div[3]/div[2]/ul/li[4]/a")
 	private WebElement nextPage;
 
-	@FindBy(css = "a[href='https://www.phptravels.net/hotels/detail/*']")
-	private WebElement location;
+	@FindBy(css = "RTL go-text-right mt0 mb4 list_title")
+	private List<WebElement> locationList;
 
-	public void findHotel(WebDriver driver) {
+	public void findHotel(WebDriver driver, JavascriptExecutor jse) {
 		
-		if (location == null){
-			nextPage.click();
-			nextPage = (new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.partialLinkText("href=\"https://www.phptravels.net/hotels/detail/\""))));
+		jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+		for (WebElement location : locationList) {
+			if (location.getAttribute("href").contains("london")) {
+				location.click();
+				break;
+			}
+
 		}
-		else {
-			location.click();
-		}
-		
-		
-
-
+		nextPage.click();
+		nextPage = (new WebDriverWait(driver, 10).until(ExpectedConditions
+				.presenceOfElementLocated(By.partialLinkText("href=\"https://www.phptravels.net/hotels/detail/\""))));
 	}
 }

@@ -43,11 +43,10 @@ public class PHPTravelsTest {
 		homePage.setCheckInDate("23/01/2019");
 		homePage.setCheckOutDate("25/01/2019");
 		homePage.setAdults("3");
-		homePage.submitSearch();
+		homePage.submitSearch(driver);
 		
 		ListingsPage listingsOne = PageFactory.initElements(driver, ListingsPage.class);
-		listingsOne.findHotel(driver);
-//		listingsOne.locationExists("London");
+		listingsOne.findHotel(driver, jse);
 //		listingsOne.goToNextPage();
 //		Thread.sleep(5000);
 //		ListingsPage listingsTwo = PageFactory.initElements(driver, ListingsPage.class);

@@ -1,8 +1,12 @@
 package phptravels;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
 
@@ -45,8 +49,10 @@ public class HomePage {
 		totalPeople.sendKeys(adults + " Adult 0 Child");
 	}
 
-	public void submitSearch() {
+	public void submitSearch(WebDriver driver) {
 		searchButton.submit();
+		searchButton = new WebDriverWait(driver, 10).until(ExpectedConditions
+				.presenceOfElementLocated(By.xpath("/html/body/div[5]/div[5]/div/div[3]/div[2]/ul/li[2]/a")));
 	}
 
 }
