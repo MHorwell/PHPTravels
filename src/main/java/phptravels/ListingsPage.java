@@ -15,22 +15,29 @@ public class ListingsPage {
 	@FindBy(xpath = "/html/body/div[5]/div[5]/div/div[3]/div[2]/ul/li[4]/a")
 	private WebElement nextPage;
 
-	@FindBy(css = "RTL go-text-right mt0 mb4 list_title")
-	private List<WebElement> locationList;
 
-	public void findHotel(WebDriver driver, JavascriptExecutor jse) {
+
+	public void findHotel(WebDriver driver, JavascriptExecutor jse, WebDriverWait wait) {
 		
 		jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+		List<WebElement> locationList = driver.findElements(By.tagName("h4"));
 
 		for (WebElement location : locationList) {
-			if (location.getAttribute("href").contains("london")) {
-				location.click();
-				break;
-			}
-
+			System.out.println("Work.");
+			System.out.println(location.getText());
+			
+//			if (href.contains("london")) {
+//				location.click();
+//				break;
+//			} else {
+//				System.out.println("notLondon");
+//			}
 		}
+		this.nextPage();
+
+	}
+
+	public void nextPage() {
 		nextPage.click();
-		nextPage = (new WebDriverWait(driver, 10).until(ExpectedConditions
-				.presenceOfElementLocated(By.partialLinkText("href=\"https://www.phptravels.net/hotels/detail/\""))));
 	}
 }

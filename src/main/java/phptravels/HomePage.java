@@ -1,6 +1,7 @@
 package phptravels;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,9 +32,14 @@ public class HomePage {
 	@FindBy(xpath = "/html/body/div[5]/section/div[2]/div/div/div[2]/div/div[1]/form/div[5]/button")
 	private WebElement searchButton;
 
-	public void locationSearch(String location) {
+	public void locationSearch(String location, WebDriver driver, WebDriverWait wait) {
 		locationSelect.click();
-		locationInput.sendKeys(location, Keys.ENTER);
+		locationInput.sendKeys(location);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[17]/ul/li/ul/li[1]/div")));
+		WebElement londonclick = driver.findElement(By.xpath("/html/body/div[17]/ul/li/ul/li[1]/div"));
+		londonclick.click();
+		
+		
 	}
 
 	public void setCheckInDate(String indate) {
@@ -49,10 +55,9 @@ public class HomePage {
 		totalPeople.sendKeys(adults + " Adult 0 Child");
 	}
 
-	public void submitSearch(WebDriver driver) {
+	public void submitSearch(WebDriver driver, WebDriverWait wait) {
 		searchButton.submit();
-		searchButton = new WebDriverWait(driver, 10).until(ExpectedConditions
-				.presenceOfElementLocated(By.xpath("/html/body/div[5]/div[5]/div/div[3]/div[2]/ul/li[2]/a")));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[5]/div[5]/div/div[3]/div[1]/div/table/tbody/tr[1]/td/div[3]/a/button")));
 	}
 
 }
